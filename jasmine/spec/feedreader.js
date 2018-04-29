@@ -68,6 +68,15 @@ $(function() {
           * clicked and does it hide when clicked again.
           */
 
+          it("changing visibility", function(){
+              //display the menu
+              $("a.menu-icon-link").triggerHandler("click");
+                expect($("body")[0].classList.contains("menu-hidden")).toEqual(false);
+              //hide the menu
+              $("a.menu-icon-link").triggerHandler("click");
+                expect($("body")[0].classList.contains("menu-hidden")).toEqual(true);
+         });
+
     /* TODO: Write a new test suite named "Initial Entries" */
 
         /* TODO: Write a test that ensures when the loadFeed
