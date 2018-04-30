@@ -33,8 +33,8 @@ $(function() {
          */
          it("has URL", function(){
           allFeeds.forEach(function(feed){
-             expect(feed.url).toBeDefined();
-             expect(feed.url).not.toBe(0);
+             expect(feed.url.length).toBeDefined();
+             expect(feed.url.length).not.toBe(0);
            });
          });
 
@@ -44,8 +44,8 @@ $(function() {
          */
          it("has name", function(){
            allFeeds.forEach(function(feed){
-             expect(feed.name).toBeDefined();
-             expect(feed.name).not.toBe(0);
+             expect(feed.name.length).toBeDefined();
+             expect(feed.name.length).not.toBe(0);
            });
          });
     });
@@ -59,7 +59,7 @@ $(function() {
          * hiding/showing of the menu element.
          */
          it("is hidden", function(){
-          expect($("body")[0].classList.contains("menu-hidden")).toEqual(true);
+          expect($("body").hasClass("menu-hidden")).toBe(true);
          });
 
          /* TODO: Write a test that ensures the menu changes
@@ -70,11 +70,11 @@ $(function() {
 
           it("changing visibility", function(){
               //display the menu
-              $("a.menu-icon-link").triggerHandler("click");
-                expect($("body")[0].classList.contains("menu-hidden")).toEqual(false);
+              $("a.menu-icon-link").trigger("click");
+                expect($("body").hasClass("menu-hidden")).toBe(false);
               //hide the menu
-              $("a.menu-icon-link").triggerHandler("click");
-                expect($("body")[0].classList.contains("menu-hidden")).toEqual(true);
+              $("a.menu-icon-link").trigger("click");
+                expect($("body").hasClass("menu-hidden")).toBe(true);
           });
        });
 
@@ -87,9 +87,7 @@ $(function() {
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
          beforeEach(function(done){
-           loadFeed(0, function(){
-             done();
-           });
+           loadFeed(0, done);
          });
 
          it("has at leat one entry", function(done){
@@ -103,19 +101,17 @@ $(function() {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-         var oldFeed ;
+         var oldFeed , newFeed ;
          beforeEach(function(done){
-           loadFeed(0, function(){
-             done();
+           loadFeed(0, done);
            });
            oldFeed = $(".feed").html();
            loadFeed(1, function(){
+            newFeed = $(".feed").html();
              done();
            });
-         });
 
          it("content is change", function(done){
-           var newFeed = $(".feed").html();
            expect(newFeed).not.toBe(oldFeed);
            done();
          });
