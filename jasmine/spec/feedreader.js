@@ -31,9 +31,10 @@ $(function() {
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
+         //test that loop through every feed to ensure it has url and it not empty
          it("has URL", function(){
           allFeeds.forEach(function(feed){
-             expect(feed.url.length).toBeDefined();
+             expect(feed.url).toBeDefined();
              expect(feed.url.length).not.toBe(0);
            });
          });
@@ -42,9 +43,10 @@ $(function() {
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
+          //test that loop through every feed to ensure it has name and it not empty
          it("has name", function(){
            allFeeds.forEach(function(feed){
-             expect(feed.name.length).toBeDefined();
+             expect(feed.name).toBeDefined();
              expect(feed.name.length).not.toBe(0);
            });
          });
@@ -58,6 +60,7 @@ $(function() {
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
+         //test that checks if the meny hidden
          it("is hidden", function(){
           expect($("body").hasClass("menu-hidden")).toBe(true);
          });
@@ -67,7 +70,7 @@ $(function() {
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
           */
-
+          //test that checks when the menu becomes visible and hidden while clicking
           it("changing visibility", function(){
               //display the menu
               $("a.menu-icon-link").trigger("click");
@@ -101,15 +104,17 @@ $(function() {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+         //test that checks the content is changing whenever loading a feed
          var oldFeed , newFeed ;
          beforeEach(function(done){
-           loadFeed(0, done);
-           });
-           oldFeed = $(".feed").html();
-           loadFeed(1, function(){
-            newFeed = $(".feed").html();
-             done();
-           });
+           loadFeed(0,function(){
+             oldFeed = $(".feed").html();
+             loadFeed(1, function(){
+               newFeed = $(".feed").html();
+               done();
+             });
+          });
+      });
 
          it("content is change", function(done){
            expect(newFeed).not.toBe(oldFeed);
